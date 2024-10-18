@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <h2 class="text-center profile-title">Welcome, {{ user.username }}!</h2>
+
+    <!-- Форма для редактирования цены занятия -->
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="id_lesson_price" class="form-label">Price per Lesson</label>
+            {{ form.lesson_price }}
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Save Changes</button>
+    </form>
+</div>
+{% endblock %}

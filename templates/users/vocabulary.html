@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}Vocabulary{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <!-- Колонка с таблицей -->
+        <div class="col-md-6">
+            <div class="vocabulary-table mt-4">
+                <h3 class="text-center">Vocabulary</h3>
+                <table class="table table-striped table-bordered">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Phrase</th>
+                            <th>Translate</th>
+                            <th>Examples</th>
+                            <th>Comments</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in vocabulary_list %}
+                        <tr>
+                            <td>{{ item.phrase }}</td>
+                            <td>{{ item.translate }}</td>
+                            <td>{{ item.examples }}</td>
+                            <td>{{ item.comments }}</td>
+                            <td>
+                                <a href="{% url 'vocabulary_edit' item.id %}" class="btn btn-warning btn-sm">Edit</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Колонка с формой добавления/редактирования -->
+        <div class="col-md-6">
+            <div class="vocabulary-form mt-4">
+                {% if editing %}
+                    <h3 class="text-center">Edit Phrase</h3>
+                {% else %}
+                    <h3 class="text-center">Add Phrase</h3>
+                {% endif %}
+                <form method="post" class="mb-4">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary w-100">
+                        {% if editing %}Save Changes{% else %}Add Phrase{% endif %}
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
